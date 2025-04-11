@@ -353,7 +353,7 @@ export default function NewTopicPage({params}:{params:any}) {
       {isLoading?<div className="h-[50vh] flex items-center justify-center text-white text-lg">Loading Resources</div>:<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {filteredMedia.map((item) => (
           <Card
-            key={item.id}
+            key={item.url}
             className="cursor-pointer hover:ring-2 hover:ring-primary transition flex flex-col py-0 gap-0"
             onClick={() => handleResourceClick(item)}
           >
