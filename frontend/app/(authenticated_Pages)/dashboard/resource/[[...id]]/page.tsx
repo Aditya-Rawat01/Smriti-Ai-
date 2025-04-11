@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Send, Wand2, BrainCircuit, FileQuestion } from "lucide-react";
 import axios from "axios";
 import { backendURI } from "@/app/backendURL";
+import Mermaid from "@/components/mermaid/mermaid";
 
 export default function ResourceChatPage({params}:{params:any}) {
     const  {id}:{id:any} = use(params);
@@ -12,7 +13,7 @@ export default function ResourceChatPage({params}:{params:any}) {
     { sender: "user" | "bot"; text: string }[]
   >([]);
   const [input, setInput] = useState("");
-
+  const [showMermaid,setShowMermaid]=useState(false)
   const handleSend = () => {
     if (!input.trim()) return;
 
@@ -38,15 +39,35 @@ export default function ResourceChatPage({params}:{params:any}) {
       Datafetcher()
     },[])
   return (
+    
     <div className="h-screen bg-muted/50 text-foreground pt-14">
       <div className="flex flex-col h-full w-full">
         {/* Header */}
         <div className="pt-6 pb-4 text-center">
           <h1 className="text-2xl font-bold text-white">Topic Name</h1>
         </div>
+        
+         
 
         {/* Chat Area */}
         <div className="overflow-y-auto h-full">
+          {showMermaid
+          ?
+          <div className="h-full w-full flex items-center justify-center">
+              <Mermaid 
+              id="flow1" 
+              chart={`
+                flowchart TD
+                  A[Start] --> B{Decision?}
+                  B -->|Yes| C[Process 1]
+                  B -->|No| D[Process 2]
+                  C --> E[End]
+                  D --> E
+              `}
+            />
+             
+          </div>
+          :
           <div className="flex-1 px-2 sm:px-0 space-y-4 max-w-7xl mx-auto pb-20">
             {messages.map((msg, idx) => (
               <div
@@ -60,7 +81,7 @@ export default function ResourceChatPage({params}:{params:any}) {
                 </div>
               </div>
             ))}
-          </div>
+          </div>}
         </div>
 
         {/* Chat Input & Actions */}
@@ -101,8 +122,9 @@ export default function ResourceChatPage({params}:{params:any}) {
               <Button
                 variant="outline"
                 className="flex-1 rounded-full border-zinc-700 text-white hover:bg-zinc-800"
+                onClick={()=>setShowMermaid((prev)=>!prev)}
               >
-                <BrainCircuit className="mr-2 h-4 w-4" /> Mind Map
+                <BrainCircuit className="mr-2 h-4 w-4"/> Mind Map
               </Button>
               <Button
                 variant="outline"
