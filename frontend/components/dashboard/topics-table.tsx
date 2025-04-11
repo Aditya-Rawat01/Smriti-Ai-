@@ -134,6 +134,7 @@ export const columns: ColumnDef<Topic>[] = [
       )
     },
   },
+  
 ]
 
 
