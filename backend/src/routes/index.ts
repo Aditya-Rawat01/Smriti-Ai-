@@ -10,7 +10,7 @@ import { tokenMiddleware } from '../middlewares/tokenMiddleware';
 import getUser from './getUser-route'
 import storeResources from './storeResources-routes';
 import getOneFolderRoutes from './getOneFolder-routes'
-
+import getOneResourceRoute from './getOneFolder-routes'
 const router = express.Router();
 router.use(clerkMiddleware())
 router.use(tokenMiddleware)
@@ -30,4 +30,5 @@ router.use('/folder', getOneFolderRoutes) // get individual folder
 router.use('/resources', getResourcesRoutes); // GET /api/resources/:folderId
 router.use('/resources',storeResources ); // post /api/resources/:folderId
 router.use('/user',getUser)
+router.use('/resource',getOneResourceRoute)
 export default router;

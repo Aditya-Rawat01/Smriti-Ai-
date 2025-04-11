@@ -1,10 +1,13 @@
 "use client";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Send, Wand2, BrainCircuit, FileQuestion } from "lucide-react";
+import axios from "axios";
+import { backendURI } from "@/app/backendURL";
 
-export default function ResourceChatPage() {
+export default function ResourceChatPage({params}:{params:any}) {
+    const  {id}:{id:any} = use(params);
   const [messages, setMessages] = useState<
     { sender: "user" | "bot"; text: string }[]
   >([]);
@@ -24,7 +27,16 @@ export default function ResourceChatPage() {
       ]);
     }, 1000);
   };
-
+    useEffect(()=>{
+      async function Datafetcher() {
+        const res=await axios.get(`${backendURI}/api/resource/${id}`,{
+          headers:{
+            backendtoken:localStorage.getItem("backendtoken")
+          }
+        })
+      }
+      Datafetcher()
+    },[])
   return (
     <div className="h-screen bg-muted/50 text-foreground pt-14">
       <div className="flex flex-col h-full w-full">
