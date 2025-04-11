@@ -59,8 +59,10 @@ import mongoose from 'mongoose';
 
 const getResources = async (req: any, res: any) => {
     try {
-        const { folderId } = req.query;
-        
+        const { folderId } = req.params;
+
+        console.log("folderId: from the resorce route",folderId)
+        console.log(!mongoose.Types.ObjectId.isValid(folderId))
         if (!folderId || !mongoose.Types.ObjectId.isValid(folderId)) {
             return res.status(400).json({ 
                 success: false,

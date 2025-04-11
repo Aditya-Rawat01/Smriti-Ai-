@@ -49,6 +49,7 @@ export default function NewTopicPage({params}:{params:any}) {
         }
       })
       setIsLoading(true)
+      console.log("error occur from here")
       const dataMedia = await axios.get(`${backendURI}/api/resources/${id}`, {
         headers:{
           backendtoken:localStorage.getItem('backendtoken')
@@ -64,6 +65,7 @@ export default function NewTopicPage({params}:{params:any}) {
       setDescriptionName((res.data as any).folder.description)
       setMedia(transformed)
       } catch (error) {
+        setIsLoading(false)
         console.log("Error occurred:", error)
       }
       
